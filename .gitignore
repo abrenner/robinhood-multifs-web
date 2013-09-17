@@ -1,4 +1,15 @@
+# OS Generated Files
+####################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Development Files
+###################
+*.scp
 */config/development
+*/config/production
 */logs/log-*.php
 */logs/!index.html
 */cache/*
