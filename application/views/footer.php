@@ -2,7 +2,7 @@
       <div class="footer">
         <p>Site designed and built by <a href="http://www.ics.uci.edu/~aebrenne/" target="_blank">Adam Brenner</a>
                    using Bootstrap and CodeIgniter for UCI's <a href="http://hpc.oit.uci.edu" target="_blank">High Performance Computing</a>
-                    cluster.
+                    cluster. Fork the <a href="https://github.com/abrenner/robinhood-multifs-web" target="_blank">code</a>.
         </p>
       </div>
 
