@@ -41,7 +41,9 @@
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
 
-$route['user/(:any)'] = 'user/show';
+$route['user/(:any)']  = 'user/show/$1';
+$route['group/(:any)'] = 'group/show/$1';
+$route['group/(:any)/(:any)'] = 'user/show/$1/$2';
 
 
 /* End of file routes.php */
