@@ -24,7 +24,7 @@
         }
         ?>
         <tr class="table-bordered warning">
-          <td>&nbsp;</td>
+          <td><?php echo $group_fs_usage->num_rows(); ?> Users</td>
           <td><?php echo byte_format($size); ?></td>
           <td><?php echo formatNumber($count); ?></td>
           <td>&nbsp;</td>
