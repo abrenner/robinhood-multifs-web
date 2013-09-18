@@ -51,4 +51,36 @@ class Stats extends CI_Model {
         # Get Group and User Information on a Specific Filesystem
         return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, count, filesystem FROM stats WHERE filesystem = ? AND grp = ? GROUP BY user ORDER BY blocks DESC',array("/$filesystem",$groupname));
     }
+    
+    /**
+	 * FileSystem List
+	 *
+	 * Generate a list of all filesystem(s).
+	 *
+	 * @author      Adam Brenner <aebrenne@uci.edu>
+	 * @version     2013-09-18
+	 */
+    function fileSystemList()
+    {
+        $this->db->select('filesystem')->from('stats')->distinct();
+        return $this->db->get();
+    }
+
+    /**
+	 * FileSystem List
+	 *
+	 * Generate a list of all filesystem(s) that has data on.
+	 *
+	 * @author      Adam Brenner <aebrenne@uci.edu>
+	 * @version     2013-09-18
+	 */
+    function fileSystemUsage($filesystem)
+    {
+        # Get FileSystem Summary Instead
+        if($filesystem == FALSE)
+            return $this->db->query('SELECT SUM(blocks)*512 AS blocks, SUM(count) AS count, filesystem FROM stats GROUP BY filesystem ORDER BY blocks DESC');
+        
+        # Get User Information on a Specific Filesystem
+        return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, count, filesystem FROM stats WHERE filesystem = ? GROUP BY user ORDER BY blocks DESC',array("/$filesystem"));
+    }
 }

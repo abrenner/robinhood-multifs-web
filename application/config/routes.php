@@ -44,6 +44,7 @@ $route['404_override'] = '';
 $route['user/(:any)']  = 'user/show/$1';
 $route['group/(:any)'] = 'group/show/$1';
 $route['group/(:any)/(:any)'] = 'user/show/$1/$2';
+$route['filesystem/(:any)'] = 'filesystem/index/$1';
 
 
 /* End of file routes.php */
