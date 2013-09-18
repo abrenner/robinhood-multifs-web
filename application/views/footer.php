@@ -2,10 +2,10 @@
     <!-- Site footer -->
     <div class="footer">
         <div class="container">
-      <p class="text-muted credit">Site designed and built by <a href="http://www.ics.uci.edu/~aebrenne/" target="_blank">Adam Brenner</a>
-                 using Bootstrap and CodeIgniter for UCI's <a href="http://hpc.oit.uci.edu" target="_blank">High Performance Computing</a>
-                  cluster. Fork the <a href="https://github.com/abrenner/robinhood-multifs-web" target="_blank">code</a>. 
-                  <!-- Page rendered in <strong>{elapsed_time}</strong> seconds -->
+      <p class="text-muted credit">Built by <a href="http://www.ics.uci.edu/~aebrenne/" target="_blank">Adam Brenner</a>
+                 for UCI's <a href="http://hpc.oit.uci.edu" target="_blank">High Performance Computing</a>
+                  cluster. <a href="https://github.com/abrenner/robinhood-multifs-web" target="_blank">Fork Here</a>.
+                   Page rendered in {elapsed_time} seconds using {memory_usage} of memory.
       </p>
         </div>
     </div>

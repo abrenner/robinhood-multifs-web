@@ -46,7 +46,7 @@ class Stats extends CI_Model {
     {
         # Get Group Summary Instead
         if($filesystem == FALSE)
-            return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, filesystem FROM stats WHERE grp = ? GROUP BY filesystem',array($groupname));
+            return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, filesystem FROM stats WHERE grp = ? GROUP BY filesystem ORDER BY blocks DESC',array($groupname));
         
         # Get Group and User Information on a Specific Filesystem
         return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, count, filesystem FROM stats WHERE filesystem = ? AND grp = ? GROUP BY user ORDER BY blocks DESC',array("/$filesystem",$groupname));
