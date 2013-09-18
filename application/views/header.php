@@ -12,7 +12,7 @@
     <link href="<?php echo base_url(); ?>css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<?php echo base_url(); ?>css/nav.css" rel="stylesheet">
+    <link href="<?php echo base_url(); ?>css/body.css" rel="stylesheet">
 
   </head>
 
