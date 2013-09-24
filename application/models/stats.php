@@ -17,7 +17,7 @@ class Stats extends CI_Model {
     function user($username)
     {
         # Some queries do not translate nicely to active records
-        return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, filesystem FROM stats WHERE user = ? AND count > 1 GROUP BY filesystem', array($username));
+        return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, stats.filesystem, fsDescriptions.label, fsDescriptions.description FROM stats LEFT JOIN fsDescriptions ON fsDescriptions.filesystem = stats.filesystem WHERE user = ? AND count > 1 GROUP BY filesystem', array($username));
     }
 
     /**
@@ -46,7 +46,7 @@ class Stats extends CI_Model {
     {
         # Get Group Summary Instead
         if($filesystem == FALSE)
-            return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, filesystem FROM stats WHERE grp = ? GROUP BY filesystem ORDER BY blocks DESC',array($groupname));
+            return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, stats.filesystem, fsDescriptions.label, fsDescriptions.description FROM stats LEFT JOIN fsDescriptions ON fsDescriptions.filesystem = stats.filesystem WHERE grp = ? GROUP BY filesystem ORDER BY blocks DESC',array($groupname));
         
         # Get Group and User Information on a Specific Filesystem
         return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, count, filesystem FROM stats WHERE filesystem = ? AND grp = ? GROUP BY user ORDER BY blocks DESC',array("/$filesystem",$groupname));
@@ -78,7 +78,8 @@ class Stats extends CI_Model {
     {
         # Get FileSystem Summary Instead
         if($filesystem == FALSE)
-            return $this->db->query('SELECT SUM(blocks)*512 AS blocks, SUM(count) AS count, filesystem FROM stats GROUP BY filesystem ORDER BY blocks DESC');
+            //return $this->db->query('SELECT SUM(blocks)*512 AS blocks, SUM(count) AS count, stats.filesystem, label, description FROM stats, fsDescriptions WHERE fsDescriptions.filesystem = stats.filesystem GROUP BY filesystem ORDER BY blocks DESC');
+            return $this->db->query('SELECT SUM(blocks)*512 AS blocks, SUM(count) AS count, stats.filesystem, label, description FROM stats LEFT JOIN fsDescriptions ON fsDescriptions.filesystem = stats.filesystem GROUP BY filesystem ORDER BY blocks DESC');
         
         # Get User Information on a Specific Filesystem
         return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, count, filesystem FROM stats WHERE filesystem = ? GROUP BY user ORDER BY blocks DESC',array("/$filesystem"));
