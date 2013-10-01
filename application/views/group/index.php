@@ -9,3 +9,8 @@
         <button type="submit" class="btn btn-lg btn-success">Show Group Usage</button>
       </form>
   </div>
+  
+  <div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <strong>Remember!</strong> Statics are updated twice a week.
+  </div>
