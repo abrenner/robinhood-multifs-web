@@ -15,7 +15,7 @@
             $count += $row->count;
         ?>
         <tr>
-          <td><?php echo $row->user; ?></td>
+          <td><a href="<?php echo site_url("user/$row->user"); ?>"><?php echo $row->user; ?></a></td>
           <td><?php echo byte_format($row->blocks); ?></td>
           <td><?php echo formatNumber($row->count); ?></td>
           <td><?php echo $row->filesystem; ?></td>
