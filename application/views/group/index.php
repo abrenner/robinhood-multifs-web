@@ -12,5 +12,5 @@
   
   <div class="alert alert-info alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Remember!</strong> Statics are updated twice a week.
+    <strong>Last Updated:</strong> <?php echo $last_run; ?>
   </div>

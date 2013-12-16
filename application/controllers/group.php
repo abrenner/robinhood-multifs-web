@@ -13,9 +13,10 @@ class Group extends CI_Controller {
 	 */
 	public function index()
 	{
+        $this->load->model('stats');
 	    $this->load->view("header");
 	    $this->load->view("menu",array("nav_active"=>"group"));
-	    $this->load->view('group/index');
+	    $this->load->view('group/index',array("last_run"=>$this->stats->getLastRunTime()));
 	    $this->load->view("footer");
 	}
 

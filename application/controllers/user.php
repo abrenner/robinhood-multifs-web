@@ -13,9 +13,10 @@ class User extends CI_Controller {
 	 */
 	public function index()
 	{
+        $this->load->model('stats');
 	    $this->load->view("header");
 	    $this->load->view("menu",array("nav_active"=>"user"));
-	    $this->load->view('user/index');
+	    $this->load->view('user/index',array("last_run"=>$this->stats->getLastRunTime()));
 	    $this->load->view("footer");
 	}
 

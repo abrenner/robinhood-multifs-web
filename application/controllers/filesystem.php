@@ -21,6 +21,7 @@ class Filesystem extends CI_Controller {
 	    $data['filesystem']  = $filesystem;
 	    $data['fs_list']     = $this->stats->fileSystemList();
 	    $data['fs_usage']    = $this->stats->fileSystemUsage($filesystem);
+        $data['last_run']    = $this->stats->getLastRunTime();
 	    
 	    $this->load->view("header");
 	    $this->load->view("menu",array("nav_active"=>"filesystem"));
