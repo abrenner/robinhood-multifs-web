@@ -26,8 +26,8 @@
         }
         ?>
         <tr class="table-bordered warning">
-          <td><?php echo byte_format($size); ?></td>
-          <td><?php echo formatNumber($count); ?></td>
+          <td><?php echo byte_format($size); ?> Used</td>
+          <td><?php echo formatNumber($count); ?> Files</td>
           <td></td>
           <td></td>
         </tr>

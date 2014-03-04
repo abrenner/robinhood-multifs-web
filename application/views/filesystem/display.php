@@ -5,6 +5,7 @@
           <th>File Count</th>
           <th>File System</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -19,13 +20,15 @@
           <td><?php echo formatNumber($row->count); ?></td>
           <td><?php echo $row->filesystem; ?></td>
           <td><?php if($row->label != null) { ?><span class="label label-<?php echo $row->label; ?>"><?php echo $row->description; ?></span><?php } ?></td>
+          <td><a href="<?php echo site_url("filesystem/".$row->filesystem.""); ?>">Breakdown</a></td>
         </tr>
         <?php
         }
         ?>
         <tr class="table-bordered warning">
-          <td><?php echo byte_format($size); ?></td>
-          <td><?php echo formatNumber($count); ?></td>
+          <td><?php echo byte_format($size); ?> Used</td>
+          <td><?php echo formatNumber($count); ?> Files</td>
+          <td></td>
           <td></td>
           <td></td>
         </tr>

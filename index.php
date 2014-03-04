@@ -33,7 +33,8 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL);
+			error_reporting(E_ALL ^ E_NOTICE);
+			ini_set('MAX_EXECUTION_TIME', -1);
 		break;
 	
 		case 'testing':

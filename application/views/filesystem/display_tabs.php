@@ -5,7 +5,7 @@
       <?php
         foreach($fs_list->result() as $row) {
       ?>
-      <li<?php if($filesystem != FALSE && $filesystem == substr($row->filesystem,1)) echo " class=\"active\""; ?>><a href="<?php echo site_url("filesystem/".substr($row->filesystem,1).""); ?>"><?php echo $row->filesystem; ?></a></li>
+      <li<?php if($filesystem != FALSE && $filesystem == substr($row->filesystem,1)) echo " class=\"active\""; ?>><a href="<?php echo site_url("filesystem/".$row->filesystem.""); ?>"><?php echo $row->filesystem; ?></a></li>
       <?php
         }
       ?>
