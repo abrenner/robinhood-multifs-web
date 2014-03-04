@@ -450,6 +450,9 @@ class CI_DB_driver {
 			$this->initialize();
 		}
 
+		// CodeIgniter Bug Fix # 2703
+		// @Author: Adam Brenner <aebrenne@uci.edu>
+		$this->db_select();
 		return $this->_execute($sql);
 	}
 
