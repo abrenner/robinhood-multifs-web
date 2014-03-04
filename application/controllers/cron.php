@@ -8,13 +8,18 @@ class Cron extends CI_Controller {
 	 * Gather stats from all RBH database and merge them with our DB.
 	 *
 	 * @author      Adam Brenner <aebrenne@uci.edu>
-	 * @version     2013-09-19
+	 * @version     2013-12-15
 	 */
 	public function getStats()
 	{
 	    $this->load->model('tasks');
-	    foreach($this->config->item('db_list') as $db)
-	        $this->tasks->pullStats($db);
+	    $this->tasks->truncate('stats');
+	    $this->load->model('configuration');
+	    $dbList = $this->configuration->getDBList();
+	    foreach($dbList->result() as $db)
+	        $this->tasks->pullStats($db->dbGroup,$db->friendlyName);
+
+	     $this->_updateCronStats();
 	}
 
 	/**
@@ -29,28 +34,82 @@ class Cron extends CI_Controller {
 	 * of someFile.txt.
 	 *
 	 * @author      Adam Brenner <aebrenne@uci.edu>
-	 * @version     2013-09-24
+	 * @version     2013-12-15
 	 */
 	public function getStatsHierarchical()
 	{
-	    $time = microtime();
-        $time = explode(' ', $time);
-        $time = $time[1] + $time[0];
-        $start = $time;
-	    echo "<pre>";
 	    $this->load->model('tasks');
-	    $this->tasks->truncate('usage');
-	    foreach($this->config->item('db_list') as $db) {
-	        //$db = "w1";
-	        $this->tasks->pullStatsHierarchical($db);
+	    $this->tasks->truncate('stats');
+	    echo "<pre>";
+	    $this->load->model('configuration');
+	    $dbList = $this->configuration->getDBList();
+	    foreach($dbList->result() as $db) {
+	        $this->tasks->pullStatsHierarchical($db->dbGroup,$db->friendlyName);
 	    }
-	    echo "</pre>";
-	    $time = microtime();
-        $time = explode(' ', $time);
-        $time = $time[1] + $time[0];
-        $finish = $time;
-        $total_time = round(($finish - $start), 4);
-        echo 'Page generated in '.$total_time.' seconds.';
+        	$this->_updateCronStats();
+	}
+    
+	/**
+	 * Get Zot Offenders
+	 *
+	 * ZOT (Zillions of Tiny Files) are problematic for a cluster. The purpose
+	 * of this function is to locate ZOT files and inform the user of this.
+	 *
+	 * @author      Adam Brenner <aebrenne@uci.edu>
+	 * @version     2014-02-04
+	 */
+	public function getZotOffenders()
+	{
+	    $this->load->model('cleanup','',FALSE);
+	    $fs_list = $this->config->item('fs_list');
+	    foreach($this->config->item('db_list') as $db) {
+	    	//if($db == "data") {
+	    	echo "Starting ZOT For: ".$db;
+	    	echo "<br />";
+	      	//$this->cleanup->getZotFiles($db,$fs_list[$db][2],$fs_list[$db][3]);
+	      	echo "<hr /><br />";
+	      //}
+	    }
+
+	    $this->cleanup->sendNotices("zot");
+	}
+
+	/**
+	 * Get Old File Offenders
+	 *
+	 * Old Files are problematic for a cluster as it takes up space. The purpose
+	 * of this function is to locate old files and inform the user.
+	 *
+	 * @author      Adam Brenner <aebrenne@uci.edu>
+	 * @version     2014-02-04
+	 */
+	public function getOldFileOffenders()
+	{
+	    $this->load->model('cleanup','',FALSE);
+	    $fs_list = $this->config->item('fs_list');
+	   /* foreach($this->config->item('db_list') as $db) {
+	    	if($db == "som") {
+	    	echo "Starting Old File Detection For: ".$db;
+	    	echo "<br />";
+	      	$this->cleanup->getOldFiles($db,$fs_list[$db][2],$fs_list[$db][3]);
+	      	echo "<hr /><br />";
+	      }
+	    }*/
+	    $this->cleanup->sendNotices("oldfile");
+	}
+
+	/**
+	 * Update Cron Stats
+	 *
+	 * Updates internal records 
+	 *
+	 * @author      Adam Brenner <aebrenne@uci.edu>
+	 * @version     2013-11-18
+	 */
+	private function _updateCronStats()
+	{
+	    $this->load->model('tasks');
+	    $this->tasks->updateCronStats();
 	}
 
 }
