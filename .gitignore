@@ -9,7 +9,7 @@ Thumbs.db
 ###################
 *.scp
 */config/development
-*/config/production
+*/config/production-uci
 */logs/log-*.php
 */logs/!index.html
 */cache/*
