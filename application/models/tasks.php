@@ -212,7 +212,7 @@ class Tasks extends CI_Model {
               $result["$row->id"]["user"]     = end(explode("/", $row->fullpath));
            }
        } else {
-          foreach($rbh->query("SELECT id, fullpath FROM ENTRIES WHERE parent_id = ?",array($parent_id))->result() as $row) {
+          foreach($rbh->query("SELECT id, fullpath FROM ENTRIES WHERE parent_id = ? AND type = 'dir' ",array($parent_id))->result() as $row) {
               $result["$row->id"]["fullpath"] = $row->fullpath;
               $result["$row->id"]["user"]     = end(explode("/", $row->fullpath));
            }

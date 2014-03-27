@@ -40,7 +40,7 @@ class Stats extends CI_Model {
     function user($username)
     {
         # Some queries do not translate nicely to active records
-        return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, stats.filesystem, config.label, config.description FROM `stats` LEFT JOIN config ON config.friendlyName = stats.filesystem WHERE user = ? AND count > 1 GROUP BY filesystem', array($username));
+        return $this->db->query('SELECT user, SUM(blocks)*512 AS blocks, SUM(count) AS count, stats.filesystem, config.label, config.description FROM `stats` LEFT JOIN config ON config.friendlyName = stats.filesystem WHERE user = ? AND blocks >= 1 GROUP BY filesystem', array($username));
     }
 
     /**

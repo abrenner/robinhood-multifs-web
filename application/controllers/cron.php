@@ -61,14 +61,13 @@ class Cron extends CI_Controller {
 	public function getZotOffenders()
 	{
 	    $this->load->model('cleanup','',FALSE);
-	    $fs_list = $this->config->item('fs_list');
-	    foreach($this->config->item('db_list') as $db) {
-	    	//if($db == "data") {
-	    	echo "Starting ZOT For: ".$db;
+	    $this->load->model('configuration');
+	    $dbList = $this->configuration->getDBList();
+	    foreach($dbList->result() as $db) {
+	    	echo "Starting ZOT For: ".$db->friendlyName;
 	    	echo "<br />";
-	      	//$this->cleanup->getZotFiles($db,$fs_list[$db][2],$fs_list[$db][3]);
+	      	$this->cleanup->getZotFiles($db->dbGroup,$db->fullpath,$db->fsInodeNumber,$db->friendlyName);
 	      	echo "<hr /><br />";
-	      //}
 	    }
 
 	    $this->cleanup->sendNotices("zot");
@@ -86,16 +85,17 @@ class Cron extends CI_Controller {
 	public function getOldFileOffenders()
 	{
 	    $this->load->model('cleanup','',FALSE);
-	    $fs_list = $this->config->item('fs_list');
-	   /* foreach($this->config->item('db_list') as $db) {
-	    	if($db == "som") {
-	    	echo "Starting Old File Detection For: ".$db;
+	    $this->load->model('configuration');
+	    $dbList = $this->configuration->getDBList();
+	    foreach($dbList->result() as $db) {
+	    	//if($db == "som") {
+	    	echo "Starting Old File Detection For: ".$db->friendlyName;
 	    	echo "<br />";
-	      	$this->cleanup->getOldFiles($db,$fs_list[$db][2],$fs_list[$db][3]);
+	      	$this->cleanup->getOldFiles($db->dbGroup,$db->fullpath,$db->fsInodeNumber,$db->friendlyName);
 	      	echo "<hr /><br />";
-	      }
-	    }*/
-	    $this->cleanup->sendNotices("oldfile");
+	      //}
+	    }
+	    //$this->cleanup->sendNotices("oldfile");
 	}
 
 	/**
