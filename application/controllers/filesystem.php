@@ -13,8 +13,14 @@ class Filesystem extends CI_Controller {
 	public function index()
 	{
 	    # Returns FALSE if not set which will show the fs Summary
-	    $filesystem = $this->uri->segment(2);
-	    
+            	     $filesystem = "";
+                  for($i = 2; $i <= $this->uri->total_segments(); $i++) {
+                  	if($i >= 3) { 
+                  	      $filesystem .= "/";
+                	}	
+ 		$filesystem .= $this->uri->segment($i);
+                 }
+
 	    $this->load->model('stats');
 	    $this->load->helper('number');
 	    
